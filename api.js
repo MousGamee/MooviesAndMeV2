@@ -36,6 +36,7 @@ export const getMovieSearch = async (query) => {
   )
 }
 
+
 export const getMovies = async () => {
   const { results } = await fetch(API_URL).then((x) => x.json());
   const movies = results.map(

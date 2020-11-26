@@ -10,7 +10,6 @@ import {
     Platform,
     Dimensions,
     TouchableOpacity,
-    ScrollView
  } from 'react-native'
 import Loading from '../components/Loading'
 import Backdrop from '../components/Backdrop'
