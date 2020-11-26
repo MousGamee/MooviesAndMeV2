@@ -21,11 +21,20 @@ const genres = {
   10770: 'TV Movie',
 };
 
-const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc`;
-const getImagePath = (path) =>
+const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=fr&sort_by=popularity.desc`;
+export const getImagePath = (path) =>
   `https://image.tmdb.org/t/p/w440_and_h660_face${path}`;
 const getBackdropPath = (path) =>
   `https://image.tmdb.org/t/p/w370_and_h556_multi_faces${path}`;
+
+export const getMovieSearch = async (query) => {
+  const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=fr&query=${query}`
+  return(
+    await fetch(url)
+      .then(res => res.json())
+      .catch(err => console.log(err))
+  )
+}
 
 export const getMovies = async () => {
   const { results } = await fetch(API_URL).then((x) => x.json());

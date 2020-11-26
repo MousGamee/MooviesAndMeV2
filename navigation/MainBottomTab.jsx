@@ -6,7 +6,9 @@ import HomeStackPage from './HomeStackPage'
 const Tab = createBottomTabNavigator()
 const mainBottomTab = () => {
     return (
-        <Tab.Navigator>
+        <Tab.Navigator tabBarOptions={{
+            keyboardHidesTabBar : true
+        }}>
             <Tab.Screen name="Home" component={HomeStackPage}/>
         </Tab.Navigator>
     )

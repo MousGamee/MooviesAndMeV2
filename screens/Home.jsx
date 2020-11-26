@@ -17,9 +17,8 @@ import Backdrop from '../components/Backdrop'
 import Rating from '../components/Rating'
 import Genres from '../components/Genres'
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
-
 const SPACING = 10;
 const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 
