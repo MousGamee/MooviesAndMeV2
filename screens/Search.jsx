@@ -60,12 +60,12 @@ const Search = ({ navigation }) => {
                         />
                     </View>
                     <View style={styles.infoSection}>
-                    <Text style={{ fontSize: 15 }} numberOfLines={1}>
-                      {item.title}
-                    </Text>
-                    <Text style={{ fontSize: 12 }} numberOfLines={3}>
-                      {item.overview}
-                    </Text>
+                        <Text style={{ fontSize: 15 }} numberOfLines={1}>
+                        {item.title}
+                        </Text>
+                        <Text style={{ fontSize: 12 }} numberOfLines={3}>
+                            {item.overview.length == 0 ? 'pas de description' : item.overview}
+                        </Text>
                     </View>     
                 </TouchableOpacity>
                     )
