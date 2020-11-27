@@ -7,7 +7,7 @@ import Rating from '../components/Rating';
 import * as Animatable from 'react-native-animatable'
 
 
-const MovieDetails = ({route}) => {
+const MovieDetails2 = ({route}) => {
     const {  BACKDROP_HEIGHT, width, height, ITEM_SIZE } = useContext(AppContext)
     useEffect(() => {
         console.log(item)
@@ -22,26 +22,26 @@ const MovieDetails = ({route}) => {
                     height : BACKDROP_HEIGHT,
                     backgroundColor : 'violet'
                 }}
-                source={{ uri : item.backdrop }}
+                source={{ uri : getImagePath(item.backdrop_path) }}
             > 
                 <View 
                 style={{width, flexDirection : "row", justifyContent : "space-around", marginTop : BACKDROP_HEIGHT - 350}}>
                     <Animatable.View 
-                        animation='fadeInLeft' delay={300} duration={500}
+                        animation='fadeInLeft' delay={300}
                         style={styles.imageContainer}>
                         <Image 
                         borderRadius={10}
                         style={{ width : null, height : null, resizeMode : 'cover', flex : 1,  }}
-                        source={{ uri : item.poster }}
+                        source={{ uri : getImagePath(item.poster_path) }}
                         />
                     </Animatable.View>
 
                     <Animatable.View
                         style={{flex : 1}}
-                       animation='fadeInRight' delay={600} duration={500}
+                       animation='fadeInRight' delay={600}
                     >
                         <Text style={{color : 'white', fontSize : 20, fontWeight : "bold", marginTop : 20}}>{ item.title }</Text>
-                            <Rating rating={item.rating} />
+                        <Rating rating={item.vote_average} />
                     </Animatable.View>
                 </View>
                     <LinearGradient
@@ -54,14 +54,11 @@ const MovieDetails = ({route}) => {
                         }}
             />  
             </ImageBackground>
-      
-
-          
         </ScrollView>
     )
 }
 
-export default MovieDetails
+export default MovieDetails2
 
 const styles = StyleSheet.create({
     imageContainer : {
