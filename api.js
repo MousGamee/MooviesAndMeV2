@@ -27,6 +27,7 @@ export const getImagePath = (path) =>
 const getBackdropPath = (path) =>
   `https://image.tmdb.org/t/p/w370_and_h556_multi_faces${path}`;
 
+  // recherche
 export const getMovieSearch = async (query) => {
   const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=fr&query=${query}`
   return(
@@ -36,7 +37,17 @@ export const getMovieSearch = async (query) => {
   )
 }
 
+//default movie search page
+export const getDefaultMovie = async () => {
+  const url = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=fr&page=1`
+  return(
+    await fetch(url)
+      .then(res => res.json())
+      .catch(err => console.log(err))
+  )
+} 
 
+// accueil movie
 export const getMovies = async () => {
   const { results } = await fetch(API_URL).then((x) => x.json());
   const movies = results.map(

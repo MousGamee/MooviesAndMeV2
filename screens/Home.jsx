@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { getMovies } from '../api';
 import { 
     StyleSheet,
@@ -21,9 +21,7 @@ const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.74;
 const SPACING = 10;
 const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 
-
 const Home = ({ navigation }) => {
-   
     const [movies, setMovies] = React.useState([]);
     const scrollX = React.useRef(new Animated.Value(0)).current;
     React.useEffect(() => {
@@ -33,7 +31,6 @@ const Home = ({ navigation }) => {
         // [empty_item, ...movies, empty_item]
         setMovies([{ key: 'empty-left' }, ...movies, { key: 'empty-right' }]);
       };
-  
       if (movies.length === 0) {
         fetchData(movies);
       }
@@ -82,7 +79,6 @@ const Home = ({ navigation }) => {
   
             return (
               <>
-             
                 <TouchableOpacity onPress={() => navigation.navigate('MovieDetails', {item})}
                 style={{ width: ITEM_SIZE }}>
                   <Animated.View
