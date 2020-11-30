@@ -13,6 +13,7 @@ import * as Animatable from 'react-native-animatable'
 import { getMovieSearch, getImagePath, getDefaultMovie } from '../api'
 import Genres from '../components/Genres';
 import Loading from '../components/Loading'
+import Rating from '../components/Rating';
 import { AppContext } from '../context/AppContext';
 
 const { width, height } = Dimensions.get('window');
@@ -122,6 +123,7 @@ const Search = ({ navigation }) => {
                             <Text style={{ fontSize: 12, marginBottom : 5 }} numberOfLines={3}>
                                 {item.overview.length == 0 ? 'pas de description' : item.overview}
                             </Text>
+                            
                             <Genres genres={item.genre_ids}/>
                         </View>     
                     </TouchableOpacity>

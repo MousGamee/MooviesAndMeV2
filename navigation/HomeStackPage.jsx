@@ -30,7 +30,6 @@ const HomeStackPage = ({ navigation }) => {
                     onPress={() => navigation.navigate('Search')}/>
                   )
             }}/>
-            <HomeStack.Screen name="MovieDetails" component={MovieDetails} />
             <HomeStack.Screen name="Search" component={Search} options={({ navigation, route }) => (
                 {
                     headerTitle : false,
@@ -44,9 +43,14 @@ const HomeStackPage = ({ navigation }) => {
                         style={{marginTop : 23, color : 'tomato', display : isSearch ? 'flex' : 'none'}}/>
                     )
                 }
-            )}
-                 
+            )}   
             />
+            <HomeStack.Screen name="MovieDetails" component={MovieDetails} options={{
+                headerTransparent : true,
+                headerBackTitleVisible : false,
+                headerTitle : false,
+                headerTintColor : 'white'
+            }}/>
         </HomeStack.Navigator>
     )
 }
