@@ -20,6 +20,8 @@ const AppContextProvider = ({ children }) => {
     const [query, setQuery] = useState('')
     const[movieResult, setMovieResult] = useState([])
 
+    //login varriable
+    const [isLogin, setIsLogin] = useState(false)
 
     return(
         <AppContext.Provider value={{
@@ -34,7 +36,8 @@ const AppContextProvider = ({ children }) => {
             query,
             setQuery,
             movieResult,
-            setMovieResult
+            setMovieResult,
+            isLogin
         }}>
             { children }
         </AppContext.Provider>
