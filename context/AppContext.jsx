@@ -37,7 +37,8 @@ const AppContextProvider = ({ children }) => {
             setQuery,
             movieResult,
             setMovieResult,
-            isLogin
+            isLogin,
+            setIsLogin
         }}>
             { children }
         </AppContext.Provider>
