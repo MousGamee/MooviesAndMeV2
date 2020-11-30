@@ -5,6 +5,7 @@ import MovieDetails from '../screens/MovieDetails'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Search from '../screens/Search'
 import { AppContext } from '../context/AppContext';
+import MovieDetails2 from '../screens/MovieDetails2';
 
 const HomeStack = createStackNavigator()
 const HomeStackPage = ({ navigation }) => {
@@ -50,6 +51,13 @@ const HomeStackPage = ({ navigation }) => {
                 headerBackTitleVisible : false,
                 headerTitle : false,
                 headerTintColor : 'white'
+            }}/>
+
+        <HomeStack.Screen name="MovieDetails2" component={MovieDetails2} options={{
+                headerTransparent : true,
+                headerBackTitleVisible : false,
+                headerTitle : false,
+                headerTintColor : 'white',
             }}/>
         </HomeStack.Navigator>
     )

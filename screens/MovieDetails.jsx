@@ -5,9 +5,6 @@ import { AppContext } from '../context/AppContext';
 import { getImagePath} from '../api'
 import Rating from '../components/Rating';
 import * as Animatable from 'react-native-animatable'
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-
-const Tabs = createMaterialTopTabNavigator()
 
 const MovieDetails = ({route}) => {
     const {  BACKDROP_HEIGHT, width, height, ITEM_SIZE } = useContext(AppContext)
@@ -29,7 +26,7 @@ const MovieDetails = ({route}) => {
                 <View 
                 style={{width, flexDirection : "row", justifyContent : "space-around", marginTop : BACKDROP_HEIGHT - 350}}>
                     <Animatable.View 
-                        animation='fadeInLeft' delay={300}
+                        animation='fadeInLeft' delay={300} duration={500}
                         style={styles.imageContainer}>
                         <Image 
                         borderRadius={10}
@@ -40,25 +37,23 @@ const MovieDetails = ({route}) => {
 
                     <Animatable.View
                         style={{flex : 1}}
-                       animation='fadeInRight' delay={600}
+                       animation='fadeInRight' delay={600} duration={500}
                     >
                         <Text style={{color : 'white', fontSize : 20, fontWeight : "bold", marginTop : 20}}>{ item.title }</Text>
-                        <Rating rating={item.rating} />
+                            <Rating rating={item.rating} />
                     </Animatable.View>
                 </View>
+                    <LinearGradient
+                        colors={['rgba(0, 0, 0, 0)', 'white']}
+                        style={{
+                        height: BACKDROP_HEIGHT - 290,
+                        width,
+                        position: 'absolute',
+                        bottom: 0,
+                        }}
+            />  
             </ImageBackground>
-
-            <LinearGradient
-          colors={['rgba(0, 0, 0, 0)', 'white']}
-          style={{
-            height: BACKDROP_HEIGHT - 230,
-            width,
-            position: 'absolute',
-            bottom: 0,
-          }}
-        />
-
-           
+      
         </ScrollView>
     )
 }

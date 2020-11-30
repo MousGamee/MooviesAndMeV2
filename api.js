@@ -1,5 +1,5 @@
 import { API_KEY } from './config';
-const genres = {
+export const genres = {
   12: 'Adventure',
   14: 'Fantasy',
   16: 'Animation',
@@ -46,7 +46,15 @@ export const getDefaultMovie = async () => {
       .catch(err => console.log(err))
   )
 } 
-
+//film similaire
+export const getSimilarMovie = async (id) => {
+  const url = `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${API_KEY}&language=fr&page=1`
+  return(
+    await fetch(url)
+      .then(res => res.json())
+      .catch(err => console.log(err))
+  )
+}
 // accueil movie
 export const getMovies = async () => {
   const { results } = await fetch(API_URL).then((x) => x.json());

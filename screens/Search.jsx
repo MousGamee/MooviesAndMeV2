@@ -10,7 +10,7 @@ import {
     TouchableOpacity
 } from 'react-native'
 import * as Animatable from 'react-native-animatable'
-import { getMovieSearch, getImagePath, getDefaultMovie } from '../api'
+import { getMovieSearch, getImagePath, getDefaultMovie, genres } from '../api'
 import Genres from '../components/Genres';
 import Loading from '../components/Loading'
 import Rating from '../components/Rating';
@@ -23,6 +23,7 @@ const Search = ({ navigation }) => {
     const[isfocused, setIfocused] = useState(false)
     const [defaultMovies, setDefaultMovie] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const [apiGenre, setApiGenre] = useState(genres)
 
     const loadMovie = search => {
         if(query != ''){
@@ -44,6 +45,7 @@ const Search = ({ navigation }) => {
     }
 
     useEffect(() => {
+        
         if(movieResult.length == 0){
             setIsSearch(false)
         }
@@ -55,7 +57,6 @@ const Search = ({ navigation }) => {
     const setLoader = () => {
             return <Loading />;
     }
-    
 
     return (
         <View style={{flex : 1, backgroundColor : 'white'}}>
@@ -76,17 +77,24 @@ const Search = ({ navigation }) => {
             </Animatable.View>
             {
                 movieResult.length == 0 ? (
+                    <>
+                    {/* <View style={{
+                        width : width,
+                         height : height, 
+                         marginTop : 80,
+                         backgroundColor : 'rgba(0, 0, 0, 0.3)', 
+                         position : "absolute", 
+                         zIndex : 100}}></View> */}
                    <FlatList
                    key={'_'}
                    numColumns={3}
                    contentContainerStyle={{ alignItems: 'center' }}
                    data={defaultMovies}
-                    style={{ backgroundColor : isfocused ? 'rgba(0, 0, 0, 0.3)' : 'white'}}
                     keyExtractor={item => '_' + item.id.toString()}
                    renderItem={({ item , i}) => {
                        return(
                         <TouchableOpacity 
-                        onPress={() => navigation.navigate('MovieDetails', {item})}
+                        onPress={() => navigation.navigate('MovieDetails2', {item})}
                         style={{width : '33%', height : 200, padding : 2}}>
                             <Image 
                                 
@@ -94,10 +102,10 @@ const Search = ({ navigation }) => {
                                 style={{width : null, height : null, resizeMode : "cover", flex : 1}}
                             />
                         </TouchableOpacity>
-                        
                        )
-                   }}
+                    }}
                     />
+                    </>
                 ) : (
                     <FlatList
                     key={'#'}
@@ -107,7 +115,7 @@ const Search = ({ navigation }) => {
                     renderItem={({ item , i }) =>{
                         return(
                     <TouchableOpacity 
-                    onPress={() => navigation.navigate('MovieDetails', {item})}
+                    onPress={() => navigation.navigate('MovieDetails2', {item})}
                         style={styles.row}>
                         <View style={styles.imageContainer} >
                             <Image 
@@ -123,8 +131,8 @@ const Search = ({ navigation }) => {
                             <Text style={{ fontSize: 12, marginBottom : 5 }} numberOfLines={3}>
                                 {item.overview.length == 0 ? 'pas de description' : item.overview}
                             </Text>
-                            
-                            <Genres genres={item.genre_ids}/>
+                            <Genres genres={item.genre_ids.map((genre) => apiGenre[genre])}/>
+                            <Rating rating={item.vote_average} />
                         </View>     
                     </TouchableOpacity>
                         )
