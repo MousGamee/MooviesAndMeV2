@@ -31,7 +31,8 @@ const Search = ({ navigation }) => {
             res => {
                 setMovieResult(res.results)
                 setIsSearch(true)
-                console.log(res.results)   
+                console.log(res.results)
+                if(res.results == 0 ) alert(`pas de resultas pour ${search}`)   
                 }
             )
         }

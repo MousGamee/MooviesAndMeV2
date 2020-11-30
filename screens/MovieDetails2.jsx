@@ -16,13 +16,6 @@ const MovieDetails2 = ({route, navigation}) => {
     const { item } = route.params
     const {  BACKDROP_HEIGHT, width, height, ITEM_SIZE } = useContext(AppContext)
 
-    
-    const fetchData = () => {
-        getSimilarMovie(item.id).then(
-            res => setSimilarMovie(res)
-        )
-    }
-
     useEffect(() => {
         console.log('component monté')
         if(!unmounted){
@@ -102,7 +95,7 @@ const MovieDetails2 = ({route, navigation}) => {
                 renderItem={({item}) => {
                     return(
                         <TouchableOpacity 
-                        onPress={() => navigation.navigate('MovieDetails2', {item})}
+                        onPress={() => navigation.push('MovieDetails2', {item})}
                         style={{width : 200, height : 350, backgroundColor : 'white', flex : 1, marginRight : 10, padding : 10, borderRadius : 20}}>
                             <Image borderRadius={20}  style={{width : '100%', height : '70%', resizeMode : "cover"}}source={{ uri : getImagePath(item.poster_path)}}/>
                             <View style={{justifyContent : "center"}}>

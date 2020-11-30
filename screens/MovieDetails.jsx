@@ -1,17 +1,37 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
-import { StyleSheet, Text, ScrollView, View, Image, ImageBackground } from 'react-native'
+import { StyleSheet, Text, ScrollView, View, Image, ImageBackground,FlatList, TouchableOpacity } from 'react-native'
 import { AppContext } from '../context/AppContext';
-import { getImagePath} from '../api'
+import { getImagePath, getSimilarMovie, genres} from '../api'
 import Rating from '../components/Rating';
 import * as Animatable from 'react-native-animatable'
+import Genres from '../components/Genres';
 
-const MovieDetails = ({route}) => {
+const MovieDetails = ({route, navigation}) => {
     const {  BACKDROP_HEIGHT, width, height, ITEM_SIZE } = useContext(AppContext)
-    useEffect(() => {
-        console.log(item)
-    }, [])
+    const [similarMovie, setSimilarMovie] = useState([])
+    const [unmounted, setUnmounted] = useState(false)
+    const [apiGenre, setApiGenre] = useState(genres)
     const { item } = route.params
+
+    useEffect(() => {
+        console.log('item => ', item)
+        console.log('component monté')
+        if(!unmounted){
+            getSimilarMovie(item.key).then(
+                res =>{ 
+                    setSimilarMovie(res.results)
+                    console.log('res monté => ',similarMovie)
+                }
+            )
+        }
+       return () => {
+           setUnmounted(true)
+           console.log('component pas monté')
+           console.log('res pas monté => ',similarMovie)
+
+       }
+    }, [unmounted])
     return (
         <ScrollView style={{flex : 1, backgroundColor : 'white'}}>
             <ImageBackground 
@@ -53,7 +73,37 @@ const MovieDetails = ({route}) => {
                         }}
             />  
             </ImageBackground>
-      
+
+            <Animatable.View style={{ paddingHorizontal : 20}} animation='fadeInRight' delay={700} >
+                <Text style={{fontSize : 20, color : 'tomato', fontWeight : "bold", marginBottom : 15}}>Synopsis</Text>
+                 <Text>{item.description.length == 0 ? 'pas de description' : item.description}</Text> 
+            </Animatable.View>
+
+            <Text style={{fontSize : 20, color : 'tomato', fontWeight : "bold", marginTop : 15, marginLeft : 15}}>
+                Titre similaire</Text>
+             <FlatList 
+                style={{marginTop : 20, paddingHorizontal : 10}}
+                renderToHardwareTextureAndroid
+                key={'__'}
+                data={similarMovie}
+                showsHorizontalScrollIndicator={false}
+                horizontal
+                keyExtractor={item => '__' + item.id.toString()}
+                renderItem={({item}) => {
+                    return(
+                        <TouchableOpacity 
+                        onPress={() => navigation.push('MovieDetails2', {item})}
+                        style={{width : 200, height : 350, backgroundColor : 'white', flex : 1, marginRight : 10, padding : 10, borderRadius : 20}}>
+                            <Image borderRadius={20}  style={{width : '100%', height : '70%', resizeMode : "cover"}}source={{ uri : getImagePath(item.poster_path)}}/>
+                            <View style={{justifyContent : "center"}}>
+                                <Text numberOfLines={2} style={{textAlign : "center", marginBottom : 5}}>{item.title}</Text>
+                                <Rating rating={item.vote_average} />
+                                <Genres custumColor='black' genres={item.genre_ids.map((genre) => apiGenre[genre])}/>
+                            </View>
+                        </TouchableOpacity>
+                    )
+                }}
+                /> 
         </ScrollView>
     )
 }
